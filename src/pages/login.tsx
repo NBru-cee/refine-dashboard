@@ -1,14 +1,9 @@
 import { useLogin } from "@refinedev/core";
 import { useEffect, useRef } from "react";
 
-import { Box, Container, Typography } from "@mui/material";
-import { ThemedTitleV2 } from "@refinedev/mui";
-
+import { Box, Container } from "@mui/material";
+import { yariga } from "../assets";
 import { CredentialResponse } from "../interfaces/google";
-
-// Todo: Update your Google Client ID here
-const GOOGLE_CLIENT_ID =
-     "1041339102270-e1fpe2b6v6u1didfndh7jkjmpcashs4f.apps.googleusercontent.com";
 
 export const Login: React.FC = () => {
      const { mutate: login } = useLogin<CredentialResponse>();
@@ -28,7 +23,8 @@ export const Login: React.FC = () => {
                try {
                     window.google.accounts.id.initialize({
                          ux_mode: "popup",
-                         client_id: GOOGLE_CLIENT_ID,
+                         client_id:
+                              "881725533619-tkds2eu5p697ri4217c3e90okl17u180.apps.googleusercontent.com",
                          callback: async (res: CredentialResponse) => {
                               if (res.credential) {
                                    login(res);
@@ -49,44 +45,35 @@ export const Login: React.FC = () => {
      };
 
      return (
-          <Container
-               style={{
-                    height: "100vh",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
+          <Box
+               sx={{
+                    backgroundColor: "#fcfcfc",
                }}
           >
-               <Box
-                    display="flex"
-                    gap="36px"
-                    justifyContent="center"
-                    flexDirection="column"
+               <Container
+                    component="main"
+                    maxWidth="xs"
+                    sx={{
+                         display: "flex",
+                         flexDirection: "column",
+                         justifyContent: "center",
+                         height: "100vh",
+                    }}
                >
-                    <ThemedTitleV2
-                         collapsed={false}
-                         wrapperStyles={{
-                              fontSize: "22px",
-                              justifyContent: "center",
-                         }}
-                    />
-
-                    <GoogleButton />
-
-                    <Typography
-                         align="center"
-                         color={"text.secondary"}
-                         fontSize="12px"
+                    <Box
+                         display="flex"
+                         justifyContent="center"
+                         flexDirection="column"
+                         alignItems="center"
                     >
-                         Powered by
-                         <img
-                              style={{ padding: "0 5px" }}
-                              alt="Google"
-                              src="https://refine.ams3.cdn.digitaloceanspaces.com/superplate-auth-icons%2Fgoogle.svg"
-                         />
-                         Google
-                    </Typography>
-               </Box>
-          </Container>
+                         <div>
+                              <img src={yariga} alt="yariga logo" />
+                         </div>
+                    </Box>
+                    <Box>
+                         <GoogleButton />
+                    </Box>
+               </Container>
+          </Box>
      );
 };
